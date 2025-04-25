@@ -19,29 +19,29 @@ export default function Sidebar() {
   return (
     <Disclosure
       as="nav"
-      className="bg-[#c0262e] h-full fixed inset-y-0 left-0 w-64"
+      className="bg-[#c0262e] h-screen fixed inset-y-0 left-0 w-[clamp(4rem,16vw,16rem)] min-w-[4rem] transition-all duration-300 overflow-hidden"
     >
       <div className="flex flex-col h-full">
-        <div className="flex items-center justify-center p-4">
-          <div className="flex shrink-0 items-center justify-center">
-            <img
-              alt="Vehere"
-              src="vehere_logo.jpg"
-              className="h-16 w-auto rounded-4xl"
-            />
-          </div>
+        {/* Logo */}
+        <div className="flex items-center justify-center p-[clamp(0.5rem,1.5vw,1.5rem)]">
+          <img
+            alt="Vehere"
+            src="vehere_logo.jpg"
+            className="h-[clamp(2rem,6vw,4rem)] w-auto rounded-3xl"
+          />
         </div>
 
-        <div className="flex flex-col flex-1 space-y-2 px-2 pt-2 pb-4">
+        {/* Navigation Links */}
+        <div className="flex flex-col flex-1 space-y-2 px-[clamp(0.5rem,1vw,1rem)] pt-2 pb-4">
           {navigation.map((item) => (
             <Link
               key={item.name}
               to={item.href}
               className={classNames(
                 item.current
-                  ? "bg-[#8E1B28] text-white" // Darker shade for active state
-                  : "text-white hover:bg-[#9E2A31] hover:text-white", // Lighter shade for hover state
-                "block rounded-md px-3 py-2 text-base font-medium"
+                  ? "bg-[#8E1B28] text-white"
+                  : "text-white hover:bg-[#9E2A31] hover:text-white",
+                "block rounded-md px-3 py-[clamp(0.25rem,0.7vw,0.5rem)] text-[clamp(0.6rem,1vw,1rem)] font-medium truncate"
               )}
             >
               {item.name}
@@ -50,6 +50,7 @@ export default function Sidebar() {
         </div>
       </div>
 
+      {/* Optional mobile panel */}
       <DisclosurePanel className="sm:hidden">
         <div className="space-y-1 px-2 pt-2 pb-3">
           {navigation.map((item) => (

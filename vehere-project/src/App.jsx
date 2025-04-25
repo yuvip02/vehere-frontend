@@ -8,7 +8,7 @@ function App() {
   return (
     <Router>
       <Navbar />
-      <div className="flex align-middle justify-center bg-gray-100">
+      <div className="pl-28 flex align-middle justify-center bg-gray-100">
         <Routes>
           <Route path="/" element={<ProbeStats />} />{" "}
           {/* Probe Stats on Homepage */}
