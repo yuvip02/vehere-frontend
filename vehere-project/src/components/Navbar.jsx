@@ -6,9 +6,11 @@ import {
 import { Link } from "react-router-dom";
 
 const navigation = [
-  { name: "Dashboard", href: "/", current: false },
+  { name: "Dashboard", href: "/dashboard", current: false },
   { name: "Probe Statistics", href: "/table", current: false },
-  { name: "File Count", href: "/file-count", current: false },
+  { name: "Probe File Count", href: "/file-count", current: false },
+  { name: "Logstash File Count", href: "/logstash-file-count", current: false },
+  { name: "Services", href: "/services", current: false },
 ];
 
 function classNames(...classes) {
@@ -22,7 +24,6 @@ export default function Sidebar() {
       className="bg-[#c0262e] h-screen fixed inset-y-0 left-0 w-[clamp(4rem,16vw,16rem)] min-w-[4rem] transition-all duration-300 overflow-hidden"
     >
       <div className="flex flex-col h-full">
-        {/* Logo */}
         <div className="flex items-center justify-center p-[clamp(0.5rem,1.5vw,1.5rem)]">
           <img
             alt="Vehere"

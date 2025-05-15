@@ -1,16 +1,19 @@
 import { useEffect, useState } from "react";
 import io from "socket.io-client";
-import { CheckCircleIcon, XCircleIcon } from "@heroicons/react/24/solid"; // Import Heroicons
+import { CheckCircleIcon, XCircleIcon } from "@heroicons/react/24/solid"; 
 
 const socket = io("http://localhost:3000");
 
 const Table = () => {
   const [probeData, setProbeData] = useState([]);
-  const maxPorts = 4; // Maximum ports to display
+  const maxPorts = 4; 
 
   useEffect(() => {
     socket.on("probeData", (data) => {
-      setProbeData(data); // Store all probes data
+      if (Array.isArray(data)) {
+        const normalProbes = data.filter((p) => !p.isLogstash);  
+        setProbeData(normalProbes);
+      }
     });
 
     return () => socket.off("probeData");
@@ -47,7 +50,6 @@ const Table = () => {
                   <td className="py-3 px-6 text-center">{probe.ip}</td>
                   <td className="py-3 px-6 text-center">{probe.hostname}</td>
 
-                  {/* Status Column with Heroicons */}
                   <td className="py-3 px-6 text-center">
                     {probe.status === "Active" ? (
                       <CheckCircleIcon className="w-6 h-6 text-green-500 mx-auto" />
@@ -58,7 +60,6 @@ const Table = () => {
 
                   <td className="py-3 px-6 text-center">{probe.total}</td>
 
-                  {/* Always Display 4 Ports in Correct Order */}
                   {Array.from({ length: maxPorts }).map((_, idx) => (
                     <td key={idx} className="py-3 px-6 text-center">
                       {probe.ports?.[idx] || "-"}
@@ -69,7 +70,6 @@ const Table = () => {
                   <td className="py-3 px-6 text-center">{probe.recv_drop}</td>
                   <td className="py-3 px-6 text-center">{probe.sent}</td>
 
-                  {/* Probe Service with Background Color */}
                   <td
                     className={`py-3 px-6 text-center font-bold ${
                       probe.services?.probe === "Active"
@@ -80,7 +80,6 @@ const Table = () => {
                     {probe.services?.probe || "Inactive"}
                   </td>
 
-                  {/* Recon Service with Background Color */}
                   <td
                     className={`py-3 px-6 text-center font-bold ${
                       probe.services?.recon === "Active"
